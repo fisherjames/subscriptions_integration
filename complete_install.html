@@ -1,9 +1,10 @@
 <h1>Install complete</h1>
-<h2>CODE: {{code}}</h2>
+<h2>CODE: <span id="myCode"></span></h2>
 <h2>ACCESS_TOKEN:</h2>
 
 <script>
 const params = new URLSearchParams(document.location.search);
 const code = params.get("code");
 console.info(code); //show C
+document.getElementById("myCode").innerHTML = code;
 </script>
