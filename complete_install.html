@@ -1,10 +1,30 @@
 <h1>Install complete</h1>
 <h2>CODE: <span id="myCode"></span></h2>
-<h2>ACCESS_TOKEN:</h2>
+<h2 style="display:none" id="accessToken">Access Token: <span id="myAccessToken"></span></h2>
+
+<button type="button" onclick="GetAccessCode()">Get Access Token!</button>
 
 <script>
 const params = new URLSearchParams(document.location.search);
 const code = params.get("code");
 console.info(code); //show C
 document.getElementById("myCode").innerHTML = code;
+const accessTokenEl = document.getElementById("accessToken");
+</script>
+
+<script>
+  function GetAccessCode() {
+      var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      accessTokenEl.style.display = "block";
+      document.getElementById("myAccessToken").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("POST", "api.boldcommerce.com/auth/oauth2/token", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send(`client_id=0xsqiPHX57YAiefJoVP3ZtYDtHPkMguq&grant_type=authorization_code&client_secret=oCBG90Zu9UFnL7sU7Zq6L0cmJCyIt0h7&code={${code}}`);
+  };
+
 </script>
